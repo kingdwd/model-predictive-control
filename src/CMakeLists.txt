@@ -2,10 +2,14 @@ INCLUDE_DIRECTORIES(BEFORE ${Boost_INCLUDE_DIR})
 
 SET(SOURCES
   Controller.cc
+  Problem.cc
+  logger.cc
   StepPlan.cc
   )
 SET(HEADERS
   ../include/model-predictive-control/Controller.hh
+  ../include/model-predictive-control/logger.hh
+  ../include/model-predictive-control/Problem.hh
   ../include/model-predictive-control/Step.hh
   ../include/model-predictive-control/StepPlan.hh
   )

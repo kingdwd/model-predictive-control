@@ -14,10 +14,10 @@ class Step
   }
   virtual ~Step(){};
 
-  const double& x() const {return x_;}
-  const double& y() const {return y_;}
-  const double& tMin() const {return tMin_;}
-  const double& tMax() const {return tMax_;}
+  const double& x() const { return x_; }
+  const double& y() const { return y_; }
+  const double& tMin() const { return tMin_; }
+  const double& tMax() const { return tMax_; }
 
  private:
   double x_;

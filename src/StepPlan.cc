@@ -2,10 +2,20 @@
 
 namespace mpc
 {
+StepPlan::StepPlan() {}
 StepPlan::StepPlan(std::vector<Step> leftSteps, std::vector<Step> rightSteps,
                    double T)
     : leftSteps_(leftSteps), rightSteps_(rightSteps), T_(T)
 {
+  computePlan(leftSteps_, rightSteps_, T_);
+}
+
+void StepPlan::computePlan(std::vector<Step> leftSteps,
+                           std::vector<Step> rightSteps, double T)
+{
+  leftSteps_ = leftSteps;
+  rightSteps_ = rightSteps;
+  T_ = T;
   tMax_ = leftSteps[0].tMax();
   stepYWidth_ = 0.1;
 
@@ -64,26 +74,26 @@ StepPlan::StepPlan(std::vector<Step> leftSteps, std::vector<Step> rightSteps,
       doubleSupport = true;
     }
 
-    if(singleSupportLeft)
+    if (singleSupportLeft)
     {
-      y_min_[iTimeStep] = leftSteps_[iStepLeft].y() - stepYWidth_/2;
-      y_max_[iTimeStep] = leftSteps_[iStepLeft].y() + stepYWidth_/2;
+      y_min_[iTimeStep] = leftSteps_[iStepLeft].y() - stepYWidth_ / 2;
+      y_max_[iTimeStep] = leftSteps_[iStepLeft].y() + stepYWidth_ / 2;
     }
-    else if(singleSupportRight)
+    else if (singleSupportRight)
     {
-      y_min_[iTimeStep] = rightSteps_[iStepRight].y() - stepYWidth_/2;
-      y_max_[iTimeStep] = rightSteps_[iStepRight].y() + stepYWidth_/2;
+      y_min_[iTimeStep] = rightSteps_[iStepRight].y() - stepYWidth_ / 2;
+      y_max_[iTimeStep] = rightSteps_[iStepRight].y() + stepYWidth_ / 2;
     }
-    else if(doubleSupport)
+    else if (doubleSupport)
     {
-      y_min_[iTimeStep] = rightSteps_[iStepRight].y() - stepYWidth_/2;
-      y_max_[iTimeStep] = leftSteps_[iStepLeft].y() + stepYWidth_/2;
+      y_min_[iTimeStep] = rightSteps_[iStepRight].y() - stepYWidth_ / 2;
+      y_max_[iTimeStep] = leftSteps_[iStepLeft].y() + stepYWidth_ / 2;
     }
   }
-  //Eigen::MatrixXd view(3, nTimeSteps);
-  //view.row(0) = time.transpose();
-  //view.row(1) = y_min_.transpose();
-  //view.row(2) = y_max_.transpose();
-  //std::cout << "view: \n" << view << std::endl;
+  // Eigen::MatrixXd view(3, nTimeSteps);
+  // view.row(0) = time.transpose();
+  // view.row(1) = y_min_.transpose();
+  // view.row(2) = y_max_.transpose();
+  // std::cout << "view: \n" << view << std::endl;
 }
 } /* mpc */

@@ -3,6 +3,11 @@
 
 namespace mpc
 {
+Controller::Controller(const Problem& prob)
+    : Controller(prob.T(), prob.h_CoM(), prob.g(), prob.nHorizon())
+{
+}
+
 Controller::Controller(const double& timeStep, const double& h_CoM,
                        const double& g, const long& nHorizon)
     : T_(timeStep),
@@ -37,10 +42,10 @@ Controller::Controller(const double& timeStep, const double& h_CoM,
   C_.setZero();
   stateM_.setZero();
   jerkM_.setZero();
-  
+
   double inf = std::numeric_limits<double>::infinity();
 
-  for (long i = 0; i < N_; i++) 
+  for (long i = 0; i < N_; i++)
   {
     stateM_.row(i) << 1, (i + 1) * T_,
         (i + 1) * (i + 1) * T_ * T_ / 2.0 - h_CoM_ / g_;
@@ -60,9 +65,6 @@ void Controller::solve(Eigen::VectorXd& res, const Eigen::Vector3d& x_state,
                        const Eigen::VectorXd& y_max)
 {
   A_.setIdentity();
-  //std::cout << "A_: " << A_ << std::endl;
-  //QPSolver_.print(jerkLB_, jerkUB_, A_, jerkM_, y_min - stateM_ * x_state,
-                  //y_max - stateM_ * x_state);
   QPSolver_.solve(jerkLB_, jerkUB_, A_, jerkM_, y_min - stateM_ * x_state,
                   y_max - stateM_ * x_state);
   res = QPSolver_.result();
