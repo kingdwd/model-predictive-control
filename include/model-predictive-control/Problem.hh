@@ -15,16 +15,17 @@ class Problem
   virtual ~Problem(){};
   void readSteps();
 
-  const double& T() const;
-  const double& h_CoM() const;
-  const double& g() const;
-  const long& nHorizon() const;
-  const long& nTotal() const;
-  const std::vector<Step>& leftSteps() const;
-  const std::vector<Step>& rightSteps() const;
-  const StepPlan& stepPlan() const;
-  const Eigen::Matrix3d stateIntegrator() const;
-  const Eigen::Vector3d jerkIntegrator() const;
+  const double& T() const { return T_; };
+  const double& h_CoM() const { return h_CoM_; }
+  const double& g() const { return g_; };
+  const long& nHorizon() const { return nHorizon_; }
+  const long& nTotal() const { return nTotal_; }
+  const std::vector<Step>& leftSteps() const { return leftSteps_; };
+  const std::vector<Step>& rightSteps() const { return rightSteps_; };
+  const StepPlan& stepPlan() const { return stepPlan_; };
+  const Eigen::Matrix3d stateIntegrator() const { return stateIntegrator_; };
+  const Eigen::Vector3d jerkIntegrator() const { return jerkIntegrator_; };
+  const Eigen::Vector3d initState() const { return initState_; };
 
  private:
   std::string configFile_;
@@ -37,6 +38,7 @@ class Problem
   std::vector<Step> leftSteps_;
   std::vector<Step> rightSteps_;
   StepPlan stepPlan_;
+  Eigen::Vector3d initState_;
   Eigen::Matrix3d stateIntegrator_;
   Eigen::Vector3d jerkIntegrator_;
 };

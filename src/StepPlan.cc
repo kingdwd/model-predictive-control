@@ -90,10 +90,5 @@ void StepPlan::computePlan(std::vector<Step> leftSteps,
       y_max_[iTimeStep] = leftSteps_[iStepLeft].y() + stepYWidth_ / 2;
     }
   }
-  // Eigen::MatrixXd view(3, nTimeSteps);
-  // view.row(0) = time.transpose();
-  // view.row(1) = y_min_.transpose();
-  // view.row(2) = y_max_.transpose();
-  // std::cout << "view: \n" << view << std::endl;
 }
 } /* mpc */

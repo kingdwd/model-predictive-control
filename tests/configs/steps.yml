@@ -3,6 +3,8 @@ h_CoM: 0.8
 g: 9.81
 nHorizon: 60
 
+initState: [0.05, 0.0, 0.0]
+
 steps:
   - {side: "L", x: 0,   y: 0.1,  tmin: 0.0, tmax: 2.0 }
   - {side: "R", x: 0,   y: -0.1, tmin: 0.0, tmax: 3.05 }

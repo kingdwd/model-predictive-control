@@ -10,6 +10,9 @@ Problem::Problem(const std::string& configFile)
   g_ = config_["g"].as<double>();
   nHorizon_ = config_["nHorizon"].as<long>();
 
+  for (int i = 0; i < 3; i++)
+    initState_[i] = config_["initState"][i].as<double>();
+
   stateIntegrator_ << 1, T_, T_* T_ / 2.0, 0, 1, T_, 0, 0, 1;
   jerkIntegrator_ << T_* T_* T_ / 6, T_* T_ / 2, T_;
 
@@ -65,24 +68,11 @@ void Problem::readSteps()
       else if (side.compare("R") == 0)
         rightSteps_.push_back(Step(x, y, tmin, tmax));
     }
+    else
+    {
+      std::cerr << "Warning: you have ill formed steps" << std::endl;
+    }
   }
 }
-
-const double& Problem::T() const { return T_; };
-const double& Problem::h_CoM() const { return h_CoM_; }
-const double& Problem::g() const { return g_; };
-const long& Problem::nHorizon() const { return nHorizon_; }
-const long& Problem::nTotal() const { return nTotal_; }
-const std::vector<Step>& Problem::leftSteps() const { return leftSteps_; };
-const std::vector<Step>& Problem::rightSteps() const { return rightSteps_; };
-const StepPlan& Problem::stepPlan() const { return stepPlan_; };
-const Eigen::Matrix3d Problem::stateIntegrator() const
-{
-  return stateIntegrator_;
-};
-const Eigen::Vector3d Problem::jerkIntegrator() const
-{
-  return jerkIntegrator_;
-};
 
 } /* mpc */
